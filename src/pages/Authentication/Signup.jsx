@@ -92,10 +92,10 @@ const Signup = () => {
             // Save user to the database
 
             const result = await saveUserToDB(userData);
-            console.log('result on signup page', result);
-
-            Swal.fire('Success', 'Account created successfully!', 'success');
-            navigate(from, { replace: true });
+            if (result) {
+                Swal.fire('Success', 'Account created successfully!', 'success');
+                navigate(from, { replace: true });
+            }
         } catch (err) {
             console.error(err);
             Swal.fire('Error', err.message, 'error');

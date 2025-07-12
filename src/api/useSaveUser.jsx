@@ -12,12 +12,13 @@ const useSaveUser = () => {
     const {mutateAsync: saveUserToDB } = useMutation({
         mutationFn: saveUser,
         onSuccess: (data) => {
-            console.log('User saved successfully:', data);
-            Swal.fire({
-                title: 'Success',
-                text: 'You have signed up successfully!',
-                icon: 'success',
-            });
+            if(data?.insertedId) {
+                Swal.fire({
+                    title: 'Success',
+                    text: 'You have signed up successfully!',
+                    icon: 'success',
+                });
+            }
         },
         onError: (error) => {
             console.error('Error saving user:', error);

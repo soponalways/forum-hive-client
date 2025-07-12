@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
 import ForumHiveLogo from '../ForumHiveLogo/ForumHiveLogo';
+import ProfileDropdown from '../../../Component/Profile/ProfileDropdown';
+import useAuth from '../../../hooks/useAuth';
+
 
 const Navbar = () => {
-
+    const { user } = useAuth();
     const navItems = <>
         <li><NavLink className={'btn btn-secondary mx-1 hover:scale-105 duration-300 transition-transform'} to="/">Home</NavLink></li>
         <li><NavLink className={'btn btn-secondary mx-1 hover:scale-105 duration-300 transition-transform'} to="/membership">Membership</NavLink></li>
@@ -37,7 +40,16 @@ const Navbar = () => {
                         <span className="badge badge-xs badge-primary indicator-item">8</span>
                     </div>
                 </button>
-                <Link to="/Join-us" className='btn btn-secondary hover:scale-105 duration-300 transition-transform'>Join Us</Link>
+                {
+                    user ?
+                        <>
+                            <ProfileDropdown userName={user.displayName} avatarUrl={user.photoURL} />
+                        </>
+                        :
+                        <>
+                            <Link to="/Join-us" className='btn btn-secondary hover:scale-105 duration-300 transition-transform'>Join Us</Link>
+                        </>
+                }
             </div>
         </div>
     );
