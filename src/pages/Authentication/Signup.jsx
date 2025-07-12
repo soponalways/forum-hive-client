@@ -93,6 +93,21 @@ const Signup = () => {
 
             const result = await saveUserToDB(userData);
             if (result) {
+                // Set JWT token in cookies
+                try {
+                    const handleSetCookie = async () => {
+                        const cookieData = {
+                            email: data.email,
+                            createdAt: new Date().toISOString(),
+                        }
+                        await axiosPublic.post('/auth/set-cookie', { cookieData }, {withCredentials: true});
+                    };
+
+                    handleSetCookie(); 
+                } catch (error) {
+                    console.error('Error setting JWT token:', error);
+                    
+                }
                 Swal.fire('Success', 'Account created successfully!', 'success');
                 navigate(from, { replace: true });
             }

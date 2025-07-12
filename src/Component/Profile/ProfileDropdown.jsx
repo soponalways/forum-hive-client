@@ -7,16 +7,16 @@ import { GrDashboard } from 'react-icons/gr';
 import { CiLogout } from 'react-icons/ci';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useAxios from '../../hooks/useAxios';
 
 const ProfileDropdown = ({ userName, avatarUrl }) => {
     const navigate = useNavigate();
     const { logOut } = useAuth();
+    const axiosPublic = useAxios();
 
-    const clearCookies = () => {
+    const clearCookies =async () => {
         // Clear cookies logic here
-        document.cookie.split(";").forEach((c) => {
-            document.cookie = c.replace(/^ +/, "").replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
-        });
+       await axiosPublic.post('/auth/clear-cookies', {}, { withCredentials: true });
     }
 
     const handleLogout = async () => {

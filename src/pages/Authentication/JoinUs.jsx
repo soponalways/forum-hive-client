@@ -7,6 +7,7 @@ import {  FaEye, FaEyeSlash } from 'react-icons/fa';
 import gsap from 'gsap';
 import Google from './shared/Google';
 import useSaveUser from '../../api/useSaveUser';
+import useAxios from '../../hooks/useAxios';
 
 const JoinUs = () => {
     const { signIn, setLoading } = useAuth();
@@ -14,6 +15,7 @@ const JoinUs = () => {
     const navigate = useNavigate();
     const { saveUserToDB } = useSaveUser();
     const location = useLocation();
+    const axiosPublic = useAxios(); 
     const from = location.state?.from || "/";
 
     const cardRef = useRef(null);
@@ -44,6 +46,21 @@ const JoinUs = () => {
                     email: signedInUser.email,
                 })
                 if (result) { 
+                    // Set JWT token in cookies
+                    try {
+                        const handleSetCookie = async () => {
+                            const cookieData = {
+                                email: data.email,
+                                createdAt: new Date().toISOString(),
+                            }
+                            await axiosPublic.post('/auth/set-cookie', { cookieData }, { withCredentials: true });
+                        };
+
+                        handleSetCookie();
+                    } catch (error) {
+                        console.error('Error setting JWT token:', error);
+
+                    }
                     Swal.fire("Success", "Logged in successfully!", "success");
                     navigate(from, { replace: true });
                     setLoading(false); // Reset loading state after successful login

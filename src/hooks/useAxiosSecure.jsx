@@ -3,8 +3,14 @@ import useAuth from './useAuth';
 import { useNavigate } from 'react-router';
 
 const axiosSecure = axios.create({
-    baseURL: import.meta.env.VITE_base_server_url
+    baseURL: import.meta.env.VITE_base_server_url, 
+    withCredentials: true, // This is important for sending cookies
 });
+
+const clearCookies = async () => {
+    // Clear cookies logic here
+    await axiosSecure.post('/auth/clear-cookies', {}, { withCredentials: true });
+}
 
 const useAxiosSecure = () => {
     const { user, logOut } = useAuth();
@@ -28,6 +34,8 @@ const useAxiosSecure = () => {
             logOut()
                 .then(() => {
                     navigate('/Join-us')
+                    clearCookies();
+                    console.log('User logged out due to unauthorized access');
                 })
                 .catch(() => { })
         }
