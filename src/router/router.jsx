@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home/Home/Home";
 import Forbidden from "../pages/Forbidden/Forbidden";
+import React from "react";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
         path: 'forbidden',
         Component: Forbidden
       },
+      {
+        path: 'Join-us', 
+        Component: React.lazy(() => import('../pages/Authentication/JoinUs'))
+      }
     ]
   },
 ]);

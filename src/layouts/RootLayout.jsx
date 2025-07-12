@@ -16,11 +16,12 @@ const RootLayout = () => {
                 <Navbar></Navbar>
             </header>
             <main className='min-h-[calc(100vh-64px)] bg-base-100 relative'>
-                {loading || <Outlet />}
+                <Outlet />
                 {/* Loading component can be used here if needed */}
-                <div className='absolute inset-10 z-10 top-0 flex items-center justify-center'>
-                    {loading && <Loading />}
-                </div>
+                {/* <div className='absolute inset-10 z-10 top-0 flex items-center justify-center'>
+                   
+                </div> */}
+                {loading && <Loading />}
             </main>
             <footer>
                 <Footer></Footer>
