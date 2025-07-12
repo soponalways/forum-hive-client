@@ -20,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: 'Join-us', 
         Component: React.lazy(() => import('../pages/Authentication/JoinUs'))
+      }, 
+      {
+        path: 'signup',
+        Component: React.lazy(() => import('../pages/Authentication/Signup'))
       }
     ]
   },

@@ -12,7 +12,7 @@ const JoinUs = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from || "/";
 
     const cardRef = useRef(null);
     const titleRef = useRef(null);
@@ -46,7 +46,9 @@ const JoinUs = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4">
+        <div 
+            className='relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 px-4 overflow-hidden'
+        >
             <div
                 ref={cardRef}
                 className="bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full max-w-md space-y-6 transform perspective-1000 transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-secondary"
