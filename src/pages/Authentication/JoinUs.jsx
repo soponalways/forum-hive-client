@@ -6,11 +6,13 @@ import Swal from 'sweetalert2';
 import {  FaEye, FaEyeSlash } from 'react-icons/fa';
 import gsap from 'gsap';
 import Google from './shared/Google';
+import useSaveUser from '../../api/useSaveUser';
 
 const JoinUs = () => {
-    const { signIn } = useAuth();
+    const { signIn, setLoading } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const { saveUserToDB } = useSaveUser();
     const location = useLocation();
     const from = location.state?.from || "/";
 
@@ -36,12 +38,20 @@ const JoinUs = () => {
 
     const onSubmit = (data) => {
         signIn(data.email, data.password)
-            .then(() => {
-                Swal.fire("Success", "Logged in successfully!", "success");
-                navigate(from, { replace: true });
+            .then(async userCredential => {
+                const signedInUser = userCredential.user;
+                const result = await saveUserToDB({
+                    email: signedInUser.email,
+                })
+                if (result) { 
+                    Swal.fire("Success", "Logged in successfully!", "success");
+                    navigate(from, { replace: true });
+                    setLoading(false); // Reset loading state after successful login
+                }
             })
             .catch(err => {
                 Swal.fire("Oops!", err.message, "error");
+                setLoading(false); // Reset loading state on error
             });
     };
 
