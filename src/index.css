@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libertinus+Mono&display=swap');
+@import "tailwindcss";
+
+@plugin "daisyui"{
+  themes: light --default, dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-primary: #00BFFF;
+  /* Sky Blue */
+  --color-secondary: #0077B6;
+  /* Darker Blue */
+}
+
+.font-abriel-fatface {
+  font-family: "Abril Fatface", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-libertinus {
+  font-family: "Libertinus Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
