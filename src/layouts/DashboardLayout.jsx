@@ -46,7 +46,7 @@ const DashboardLayout = () => {
             </div>
 
             {/* Mobile Hamburger */}
-            <div className="md:hidden pl-4 pt-4 z-50">
+            <div className="md:hidden absolute top-4 right-4 hover:scale-105 z-50">
                 <button onClick={toggleSidebar} className="text-2xl text-primary cursor-pointer">
                     {sidebarOpen ? <FaTimes /> : <FaBars />}
                 </button>
@@ -86,7 +86,7 @@ const DashboardLayout = () => {
             </div>
 
             {/* Main content */}
-            <main className="flex-1 bg-base-200 p-4 ml-10 md:ml-14">
+            <main className="flex-1 bg-base-200 p-4 md:ml-14">
                 <Outlet />
             </main>
         </div>

@@ -6,6 +6,7 @@ import React from "react";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import PrivateRoute from "../routes/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
+import AddPost from "../pages/Dashboard/User/AddPost";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
         index: true,
         Component: Dashboard
       },
+      {
+        path: 'add-post', 
+        element: <AddPost />, 
+      }
       
     ]
   }

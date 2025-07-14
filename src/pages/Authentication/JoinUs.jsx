@@ -53,7 +53,7 @@ const JoinUs = () => {
                                 email: data.email,
                                 createdAt: new Date().toISOString(),
                             }
-                            await axiosPublic.post('/auth/set-cookie', { cookieData }, { withCredentials: true });
+                            await axiosPublic.post('/auth/set-cookie', cookieData, { withCredentials: true });
                         };
 
                         handleSetCookie();
