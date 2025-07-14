@@ -3,6 +3,9 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home/Home/Home";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import React from "react";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import PrivateRoute from "../routes/PrivateRoute";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -27,4 +30,15 @@ export const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: 'dashboard', 
+    element: <PrivateRoute ><DashboardLayout /></PrivateRoute>, 
+    children: [
+      {
+        index: true,
+        Component: Dashboard
+      },
+      
+    ]
+  }
 ]);

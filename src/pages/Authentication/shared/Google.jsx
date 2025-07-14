@@ -17,8 +17,19 @@ const Google = ({ from }) => {
         signInWithGoogle()
             .then(async userCredential => {
                 const signedInUser = userCredential.user;
+                const createdAt = new Date();
                 const result = await saveUserToDB({
+                    name: signedInUser.displayName,
+                    username: signedInUser.email.split('@')[0],
                     email: signedInUser.email,
+                    role: 'user',
+                    memberShip: 'non-member',
+                    badges: ['Bronze'],
+                    postLimit: 5,
+                    uid: userCredential.user.uid,
+                    image: signedInUser.photoURL,
+                    createdAt: createdAt.toISOString(),
+                    lastSignIn: createdAt.toISOString()
                 })
                 if (result) {
                     // Set JWT token in cookies

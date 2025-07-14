@@ -13,11 +13,10 @@ const clearCookies = async () => {
 }
 
 const useAxiosSecure = () => {
-    const { user, logOut } = useAuth();
+    const { logOut } = useAuth();
     const navigate = useNavigate();
 
     axiosSecure.interceptors.request.use(config => {
-        config.headers.Authorization = `Bearer ${user.accessToken}`
         return config;
     }, error => {
         return Promise.reject(error);
