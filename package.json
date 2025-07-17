@@ -20,6 +20,7 @@
     "date-fns": "^4.1.0",
     "firebase": "^11.9.1",
     "gsap": "^3.13.0",
+    "lottie-react": "^2.4.1",
     "motion": "^12.23.5",
     "react": "^19.1.0",
     "react-cookie": "^8.0.1",

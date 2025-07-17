@@ -6,6 +6,7 @@ import { motion } from 'motion/react';
 import Swal from 'sweetalert2';
 import { FaComments, FaTrash } from 'react-icons/fa';
 import Loading from '../../../components/Loading';
+import { Link } from 'react-router'
 
 const MyPosts = () => {
     const { user } = useAuth();
