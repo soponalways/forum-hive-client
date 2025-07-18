@@ -8,6 +8,7 @@ import PrivateRoute from "../routes/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AddPost from "../pages/Dashboard/User/AddPost";
 import MyPosts from "../pages/Dashboard/User/MyPosts";
+import PostDetails from "../pages/PostDetails/PostDetails";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: 'signup',
         Component: React.lazy(() => import('../pages/Authentication/Signup'))
+      }, 
+      {
+        path: '/post/:PostId', 
+        Component: PostDetails
       }
     ]
   },

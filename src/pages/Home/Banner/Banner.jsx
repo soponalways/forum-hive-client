@@ -8,6 +8,7 @@ import useGetPosts from '../../../api/useGetPosts';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../components/Loading';
 import Pagination from './Pagination';
+import { useNavigate } from 'react-router';
 
 const Banner = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -19,7 +20,7 @@ const Banner = () => {
     const [searchQuery , setSearchQuery] = useState('')
     const axiosPublic = useAxios();
     const [current , setCurrent] = useState(0);
-    
+    const navigate = useNavigate(); 
 
     const {data = []  , isLoading} = useGetPosts({
         sortBy,
@@ -141,6 +142,7 @@ const Banner = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, ease: 'easeInOut', delay: index * 0.05 }}
+                        onClick={() => navigate(`/post/${post._id}`)}
                         className="p-5 hover:drop-shadow-xl hover:drop-shadow-primary bg-white rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition cursor-pointer duration-300 border border-base-200"
                     >
                         <div className="flex items-center gap-3 mb-4">
