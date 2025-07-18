@@ -4,31 +4,66 @@ import { motion } from 'framer-motion';
 import { FaComments } from 'react-icons/fa';
 import useAxios from '../../../hooks/useAxios';
 import { Select } from '@headlessui/react';
+import useGetPosts from '../../../api/useGetPosts';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../../../components/Loading';
+import Pagination from './Pagination';
 
 const Banner = () => {
     const { register, handleSubmit, reset } = useForm();
     const [posts, setPosts] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
+    const [sortBy, setSortBy] = useState(null);
+    const [order, setOrder] = useState(null);
+    const [searchQuery , setSearchQuery] = useState('')
     const axiosPublic = useAxios();
+    const [current , setCurrent] = useState(0);
+    
+
+    const {data = []  , isLoading} = useGetPosts({
+        sortBy,
+        order,
+        limit: 5, 
+        current
+    });
+
+    const { data: searchPostData = [] , isLoading : isLoading2 } = useQuery({
+        queryKey: ['posts', searchQuery, current],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/posts/search', {
+                params: {
+                    tag: searchQuery, 
+                    current
+                }
+            })
+            return res.data
+        }
+    })
+
+    useEffect(() => {
+        if(searchPostData) {
+            setSearchResults(searchPostData)
+        }
+    }, [searchPostData])
 
     useEffect(() => {
         const fetchAllPosts = async () => {
             try {
-                const res = await axiosPublic.get('/posts');
-                setPosts(Array.isArray(res.data) ? res.data : []);
+                setPosts(data);
+                setIsSearching(false)
             } catch (error) {
                 console.error(error);
             }
         };
         fetchAllPosts();
-    }, [axiosPublic]);
+    }, [data]);
 
     const onSearch = async (data) => {
         setIsSearching(true);
+        setCurrent(0)
         try {
-            const res = await axiosPublic.get(`/posts/search?tag=${data.search}`);
-            setSearchResults(Array.isArray(res.data) ? res.data : []);
+            setSearchQuery(data.search)
         } catch (error) {
             console.error(error);
         } finally {
@@ -37,15 +72,10 @@ const Banner = () => {
     };
 
     const handleSort = async (value) => {
-        const sortBy = value.split('&')[0];
-        const order = value.split('&')[1] || 'desc';
-        const res = await axiosPublic.get('/posts', {
-            params: {
-                sortBy,
-                order
-            }
-        });
-        setSearchResults(res.data);
+        const sortByValue = value.split('&')[0];
+        setSortBy(sortByValue); 
+        const orderValue = value.split('&')[1] || 'desc';
+        setOrder(orderValue)
         setIsSearching(true);
     }
 
@@ -57,14 +87,17 @@ const Banner = () => {
         { value: 'date&asc', label: 'Oldest to Newest' },
 
     ]
-
     const displayedPosts = isSearching ? searchResults : posts;
-    console.log('Displayed Posts:', displayedPosts);
 
+    if(isLoading) {
+        return <Loading></Loading>
+    } else if (isLoading2) {
+        return <Loading></Loading>
+    }
     return (
         <div className="py-16 px-4 md:px-8 bg-gradient-to-br from-primary/10 to-secondary/10 min-h-[100vh]">
             {/* Banner Section */}
-            <div className="max-w-4xl mx-auto text-center mb-12 bg-red-400">
+            <div className="max-w-4xl mx-auto text-center mb-12">
                 <h1 className="text-5xl font-extrabold text-black mb-6 leading-tight">
                     Discover & Share Ideas <br className="hidden md:block" /> on <span className="text-primary">ForumHive</span>
                 </h1>
@@ -135,9 +168,20 @@ const Banner = () => {
                 ))}
             </div>
 
-            {isSearching && displayedPosts.length === 0 && (
-                <p className="text-center text-red-500 mt-10 text-lg font-semibold">No posts found for that tag.</p>
-            )}
+            <div>
+                {displayedPosts && (
+                    <Pagination
+                        setCurrent={setCurrent}
+                        current={current}
+                    ></Pagination>
+                )}
+            </div>
+
+            <div>
+                {isSearching && displayedPosts?.length === 0 && (
+                    <p className="text-center text-red-500 mt-10 text-lg font-semibold">No posts found for that tag.</p>
+                )}
+            </div>
         </div>
     );
 };
