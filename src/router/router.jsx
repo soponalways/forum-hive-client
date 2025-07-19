@@ -9,6 +9,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import AddPost from "../pages/Dashboard/User/AddPost";
 import MyPosts from "../pages/Dashboard/User/MyPosts";
 import PostDetails from "../pages/PostDetails/PostDetails";
+import MemberShip from "../pages/MemberShip/MemberShip";
+import PaymentForm from "../pages/MemberShip/PaymentForm";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +36,18 @@ export const router = createBrowserRouter([
       {
         path: '/post/:PostId', 
         Component: PostDetails
+      }, 
+      {
+        path: '/membership', 
+        element: <PrivateRoute>
+          <MemberShip></MemberShip>
+        </PrivateRoute>
+      }, 
+      {
+        path: '/payment', 
+        element: <PrivateRoute>
+          <PaymentForm></PaymentForm>
+        </PrivateRoute>
       }
     ]
   },
