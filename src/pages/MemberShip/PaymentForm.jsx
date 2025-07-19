@@ -50,7 +50,6 @@ const PaymentForm = () => {
                 }
             }
         });
-        console.log('result ' , result)
         if (result.error) {
             setError(result.error);
         } else {

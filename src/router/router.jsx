@@ -11,6 +11,7 @@ import MyPosts from "../pages/Dashboard/User/MyPosts";
 import PostDetails from "../pages/PostDetails/PostDetails";
 import MemberShip from "../pages/MemberShip/MemberShip";
 import PaymentForm from "../pages/MemberShip/PaymentForm";
+import MyProfile from "../pages/Dashboard/User/MyProfile";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: 'my-posts',
         element: <MyPosts />, 
+      },
+      {
+        path: 'profile', 
+        element: <MyProfile></MyProfile>
       }
       
     ]
