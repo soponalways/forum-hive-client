@@ -13,6 +13,8 @@ import MemberShip from "../pages/MemberShip/MemberShip";
 import PaymentForm from "../pages/MemberShip/PaymentForm";
 import MyProfile from "../pages/Dashboard/User/MyProfile";
 import Comment from "../pages/Dashboard/User/Comment/Comment";
+import AdminRoute from "../routes/AdminRoute";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -76,8 +78,14 @@ export const router = createBrowserRouter([
       {
         path: 'comment/:postId', 
         element: <Comment></Comment>
+      }, 
+      // Admin Route
+      {
+        path: 'manage-users', 
+        element: <AdminRoute>
+          <ManageUsers></ManageUsers>
+        </AdminRoute>
       }
-      
     ]
   }
 ]);

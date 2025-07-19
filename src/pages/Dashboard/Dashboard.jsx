@@ -1,10 +1,28 @@
 import React from 'react';
+import useGetRole from '../../api/useGetRole';
+import Loading from '../../components/Loading';
+import AdminRoute from '../../routes/AdminRoute';
+import AdminDashboard from './Admin/AdminDashboard';
+import UserDashboard from './User/UserDashboard';
 
 const Dashboard = () => {
+    const { role, isLoading } = useGetRole();
+
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
     return (
         <div>
-            Hello from Dashboard
-            <p>This is the dashboard page where users can manage their profiles, view statistics, and access various features of the application.</p>
+            {role === "admin" ? <>
+                <AdminRoute>
+                    <AdminDashboard></AdminDashboard>
+                </AdminRoute>
+            </>
+                :
+                <>
+                    <UserDashboard></UserDashboard>
+                </>}
         </div>
     );
 };

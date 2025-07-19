@@ -1,24 +1,46 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router';
-import { FaBackward, FaBars, FaTimes, FaHome, FaUser, FaPlus, FaClipboardList } from 'react-icons/fa';
+import { FaBackward, FaBars, FaTimes, FaHome, FaUser, FaPlus, FaClipboardList, FaUserShield, FaUsersCog, FaExclamationTriangle, FaBullhorn } from 'react-icons/fa';
 import useAuth from '../hooks/useAuth';
+import useGetRole from '../api/useGetRole';
+import Loading from '../components/Loading';
 
 const DashboardLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const location = useLocation();
     const {user} = useAuth(); 
+    // Role
+    const {role, isLoading} = useGetRole(); 
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
     const closeSidebar = () => setSidebarOpen(false);
 
-    const navLinks = [
-        { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
-        { to: '/dashboard/profile', label: 'Profile', Icon: <FaUser /> },
-        { to: '/dashboard/add-post', label: 'Add Post', Icon: <FaPlus /> },
-        { to: '/dashboard/my-posts', label: 'My Posts', Icon: <FaClipboardList /> },
-        { to: '/', label: 'Back to Home', Icon: <FaBackward /> },
+    let navLinks = [
+        
     ];
 
+    if(role === "admin") {
+        navLinks = [
+            { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
+            { to: '/dashboard/admin-profile', label: 'Admin Profile', Icon: <FaUserShield /> },       // Bonus point 2
+            { to: '/dashboard/manage-users', label: 'Manage Users', Icon: <FaUsersCog /> },
+            { to: '/dashboard/reported-comments', label: 'Reported Activities', Icon: <FaExclamationTriangle /> },
+            { to: '/dashboard/announcement', label: 'Make Announcement', Icon: <FaBullhorn /> },
+            { to: '/', label: 'Back to Home', Icon: <FaBackward /> },
+        ]
+    }else {
+        navLinks =[
+            { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
+            { to: '/dashboard/profile', label: 'Profile', Icon: <FaUser /> },
+            { to: '/dashboard/add-post', label: 'Add Post', Icon: <FaPlus /> },
+            { to: '/dashboard/my-posts', label: 'My Posts', Icon: <FaClipboardList /> },
+            { to: '/', label: 'Back to Home', Icon: <FaBackward /> },
+        ]
+    }
+
+    if(isLoading) {
+        return <Loading></Loading>
+    }
     return (
         <div className="flex min-h-screen">
             {/* Sidebar for desktop */}
