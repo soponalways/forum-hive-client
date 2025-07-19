@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
@@ -6,11 +5,12 @@ import { motion } from 'motion/react';
 import Swal from 'sweetalert2';
 import { FaComments, FaTrash } from 'react-icons/fa';
 import Loading from '../../../components/Loading';
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
 const MyPosts = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate(); 
 
     const { data: myPosts = [], refetch, isLoading } = useQuery({
         queryKey: ['my-posts', user?.email],
@@ -86,7 +86,7 @@ const MyPosts = () => {
                                 <td className="font-medium text-black">{post.title}</td>
                                 <td className="text-black">{(post.upVote || 0) + (post.downVote || 0)}</td>
                                 <td className="space-x-2">
-                                    <button className="btn btn-sm btn-outline btn-info">
+                                    <button onClick={() => navigate(`/dashboard/comment/${post._id}`)} className="btn btn-sm btn-outline btn-info">
                                         <FaComments className="mr-1" /> Comment
                                     </button>
                                     <button

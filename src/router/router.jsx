@@ -12,6 +12,7 @@ import PostDetails from "../pages/PostDetails/PostDetails";
 import MemberShip from "../pages/MemberShip/MemberShip";
 import PaymentForm from "../pages/MemberShip/PaymentForm";
 import MyProfile from "../pages/Dashboard/User/MyProfile";
+import Comment from "../pages/Dashboard/User/Comment/Comment";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: 'profile', 
         element: <MyProfile></MyProfile>
+      }, 
+      {
+        path: 'comment/:postId', 
+        element: <Comment></Comment>
       }
       
     ]
