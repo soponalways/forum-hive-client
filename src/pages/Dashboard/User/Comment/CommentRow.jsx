@@ -1,19 +1,47 @@
 import { useState } from "react";
+import useAxios from "../../../../hooks/useAxios";
+import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../../../components/Loading";
 
 
 const CommentRow = ({ comment, handleModal }) => {
     const [feedback, setFeedback] = useState('');
-    const [reportClicked, setReportClicked] = useState(false);
+    const axiosPublic = useAxios(); 
+
+    const {data: existingComment, refetch } = useQuery({
+        queryKey: ['comment', comment._id], 
+        queryFn: async () =>{
+            const res = await axiosPublic.get(`/report/${comment._id}`); 
+            return res.data; 
+        }
+    })
+    console.log(existingComment)
 
     const shortComment = comment?.comment?.length > 20
         ? `${comment?.comment.slice(0, 20)}...`
         : comment?.comment;
 
-    const handleReport = () => {
-        setReportClicked(true);
-        // Send report to backend here
+    const handleReport =async () => {
+        const { _id, createdAt, ...restData } = comment; 
+        const reportData = {
+            commentId : _id, 
+            feedback ,
+            createdAt: new Date(), 
+            ...restData, 
+            status: "pending"
+        }; 
+        const {data} = await axiosPublic.post('/reports', reportData); 
+        if(data.insertedId) {
+            Swal.fire({
+                title: "Success", 
+                text: "Your report has beed submitted", 
+                icon: "success", 
+                iconColor: "skyblue"
+            })
+        }; 
+        refetch(); 
     };
-
     return (
         <>
             {/* Table Row */}
@@ -48,9 +76,9 @@ const CommentRow = ({ comment, handleModal }) => {
                     <button
                         className="btn btn-sm btn-error text-white"
                         onClick={handleReport}
-                        disabled={!feedback || reportClicked}
+                        disabled={!feedback || existingComment}
                     >
-                        {reportClicked ? 'Reported' : 'Report'}
+                        {existingComment ? 'Reported' : 'Report'}
                     </button>
                 </td>
             </tr>
