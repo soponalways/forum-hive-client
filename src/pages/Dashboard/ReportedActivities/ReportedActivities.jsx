@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { Button } from '@material-tailwind/react';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
@@ -15,7 +14,6 @@ const ReportedActivities = () => {
             return res.data; 
         }
     })
-    console.log(reports)
 
     const handleAction = async (action, reportId, userEmail, commentId) => {
         const response = await axiosSecure.patch(`/reports/action`, {

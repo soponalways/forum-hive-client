@@ -2,20 +2,19 @@ import { useState } from "react";
 import useAxios from "../../../../hooks/useAxios";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
-import Loading from "../../../../components/Loading";
 
 
 const CommentRow = ({ comment, handleModal }) => {
     const [feedback, setFeedback] = useState('');
     const axiosPublic = useAxios(); 
 
-    const {data: existingComment, refetch } = useQuery({
+    const {data: existingReport, refetch } = useQuery({
         queryKey: ['comment', comment._id], 
         queryFn: async () =>{
             const res = await axiosPublic.get(`/report/${comment._id}`); 
             return res.data; 
         }
-    })
+    }); 
 
     const shortComment = comment?.comment?.length > 20
         ? `${comment?.comment.slice(0, 20)}...`
@@ -73,11 +72,11 @@ const CommentRow = ({ comment, handleModal }) => {
                 </td>
                 <td className="text-sm ">
                     <button
-                        className="btn btn-sm btn-error text-white"
+                        className={`btn btn-sm btn-error ${existingReport.status === 'resolved' ? "text-green-500" : "text-white"}`}
                         onClick={handleReport}
-                        disabled={!feedback || existingComment}
+                        disabled={!feedback || existingReport}
                     >
-                        {existingComment ? 'Reported' : 'Report'}
+                        {existingReport ? `${existingReport.status === 'resolved' ? "Resolved" : "Reported"}` : 'Report'}
                     </button>
                 </td>
             </tr>
