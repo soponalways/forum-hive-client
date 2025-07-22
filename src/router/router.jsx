@@ -16,6 +16,7 @@ import Comment from "../pages/Dashboard/User/Comment/Comment";
 import AdminRoute from "../routes/AdminRoute";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ReportedActivities from "../pages/Dashboard/ReportedActivities/ReportedActivities";
+import MakeAnnouncement from "../pages/Dashboard/Admin/MakeAnnouncement/MakeAnnouncement";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,12 @@ export const router = createBrowserRouter([
         path: 'reported-comments', 
         element: <AdminRoute>
           <ReportedActivities></ReportedActivities>
+        </AdminRoute>
+      }, 
+      {
+        path: 'announcement', 
+        element: <AdminRoute>
+          <MakeAnnouncement></MakeAnnouncement>
         </AdminRoute>
       }
     ]

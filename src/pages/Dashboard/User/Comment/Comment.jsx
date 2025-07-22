@@ -21,7 +21,6 @@ const Comment = () => {
             return res.data; 
         }
     })
-    console.log(comments)
 
     const handleModal = comment => {
         setModalComment(comment); 

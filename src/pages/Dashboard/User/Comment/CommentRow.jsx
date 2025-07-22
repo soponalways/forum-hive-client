@@ -72,11 +72,11 @@ const CommentRow = ({ comment, handleModal }) => {
                 </td>
                 <td className="text-sm ">
                     <button
-                        className={`btn btn-sm btn-error ${existingReport.status === 'resolved' ? "text-green-500" : "text-white"}`}
+                        className={`btn btn-sm btn-error ${existingReport?.status === 'resolved' ? "text-green-500" : "text-white"}`}
                         onClick={handleReport}
                         disabled={!feedback || existingReport}
                     >
-                        {existingReport ? `${existingReport.status === 'resolved' ? "Resolved" : "Reported"}` : 'Report'}
+                        {existingReport ? `${existingReport?.status === 'resolved' ? "Resolved" : "Reported"}` : 'Report'}
                     </button>
                 </td>
             </tr>
