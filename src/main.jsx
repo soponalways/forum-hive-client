@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { HelmetProvider } from 'react-helmet-async';
+import { ThemeProvider } from "@material-tailwind/react";
 
 Aos.init();
 const queryClient = new QueryClient();
@@ -23,7 +24,9 @@ createRoot(document.getElementById('root')).render(
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <HelmetProvider>
-              <RouterProvider router={router} />
+              <ThemeProvider>
+                <RouterProvider router={router} />
+              </ThemeProvider>
             </HelmetProvider>
           </AuthProvider>
         </QueryClientProvider>

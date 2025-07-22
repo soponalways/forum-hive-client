@@ -15,6 +15,7 @@ import MyProfile from "../pages/Dashboard/User/MyProfile";
 import Comment from "../pages/Dashboard/User/Comment/Comment";
 import AdminRoute from "../routes/AdminRoute";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
+import ReportedActivities from "../pages/Dashboard/ReportedActivities/ReportedActivities";
 
 export const router = createBrowserRouter([
   {
@@ -84,6 +85,12 @@ export const router = createBrowserRouter([
         path: 'manage-users', 
         element: <AdminRoute>
           <ManageUsers></ManageUsers>
+        </AdminRoute>
+      }, 
+      {
+        path: 'reported-comments', 
+        element: <AdminRoute>
+          <ReportedActivities></ReportedActivities>
         </AdminRoute>
       }
     ]

@@ -16,7 +16,6 @@ const CommentRow = ({ comment, handleModal }) => {
             return res.data; 
         }
     })
-    console.log(existingComment)
 
     const shortComment = comment?.comment?.length > 20
         ? `${comment?.comment.slice(0, 20)}...`
