@@ -7,29 +7,9 @@ import Swal from 'sweetalert2';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaJs, FaReact, FaNodeJs, FaServer, FaDatabase, FaLaptopCode, FaCode, FaFireAlt, FaCss3Alt, FaGitAlt, FaCloudUploadAlt, FaUserTie, FaRegLightbulb, FaQuestion } from 'react-icons/fa';
+import { useQuery } from '@tanstack/react-query'
+import useAxios from '../../../hooks/useAxios';
 
-const tagOptions = [
-    { value: 'javascript', label: 'JavaScript', icon: <FaJs /> },
-    { value: 'react', label: 'React.js', icon: <FaReact /> },
-    { value: 'nodejs', label: 'Node.js', icon: <FaNodeJs /> },
-    { value: 'express', label: 'Express.js', icon: <FaServer /> },
-    { value: 'mongodb', label: 'MongoDB', icon: <FaDatabase /> },
-    { value: 'frontend', label: 'Frontend', icon: <FaLaptopCode /> },
-    { value: 'backend', label: 'Backend', icon: <FaServer /> },
-    { value: 'fullstack', label: 'Full Stack', icon: <FaCode /> },
-    { value: 'firebase', label: 'Firebase', icon: <FaFireAlt /> },
-    { value: 'css', label: 'CSS', icon: <FaCss3Alt /> },
-    { value: 'tailwind', label: 'Tailwind CSS', icon: <FaCss3Alt /> },
-    { value: 'nextjs', label: 'Next.js', icon: <FaReact /> },
-    { value: 'typescript', label: 'TypeScript', icon: <FaJs /> },
-    { value: 'git', label: 'Git & GitHub', icon: <FaGitAlt /> },
-    { value: 'deployment', label: 'Deployment', icon: <FaCloudUploadAlt /> },
-    { value: 'api', label: 'REST API', icon: <FaServer /> },
-    { value: 'career', label: 'Career Advice', icon: <FaUserTie /> },
-    { value: 'project', label: 'Project Ideas', icon: <FaRegLightbulb /> },
-    { value: 'interview', label: 'Interview Tips', icon: <FaQuestion /> },
-    { value: 'problem-solving', label: 'Problem Solving', icon: <FaCode /> },
-];
 
 const AddPost = () => {
     const { user } = useAuth();
@@ -37,20 +17,30 @@ const AddPost = () => {
     const [postLimitReached, setPostLimitReached] = useState(false);
     const { register, handleSubmit, control, reset, formState: { errors } } = useForm();
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxios(); 
 
-    useEffect(() => {
-        const checkPostCount = async () => {
+    const { data:tagOptions= []} = useQuery({
+        queryKey : ['tags'], 
+        queryFn: async () => {
+            const res = await axiosPublic.get('/tags'); 
+            return res.data; 
+        }
+    })
+
+    const {data } = useQuery({
+        queryKey: ['postLimit'], 
+        queryFn: async () => {
             try {
                 const res = await axiosSecure.get(`/posts/user/${user.email}/count`);
                 if (res.data.count >= 5) {
                     setPostLimitReached(true);
                 }
+                return res.data; 
             } catch (err) {
                 console.error(err);
             }
-        };
-        if (user?.email) checkPostCount();
-    }, [user, axiosSecure]);
+        }
+    })
 
     const onSubmit = async (data) => {
         const postData = {
@@ -138,7 +128,7 @@ const AddPost = () => {
                             className="w-full text-black"
                             getOptionLabel={(e) => (
                                 <div className="flex items-center gap-2">
-                                    {e.icon} <span>{e.label}</span>
+                                    <span>{e.label}</span>
                                 </div>
                             )}
                         />
