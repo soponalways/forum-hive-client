@@ -2,10 +2,26 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { FaCheckCircle } from 'react-icons/fa';
+import { useQuery } from '@tanstack/react-query';
+import useAxios from '../../hooks/useAxios';
+import useAuth from '../../hooks/useAuth';
 
 const MemberShip = () => {
     const navigate = useNavigate();
-
+    const axiosPublic = useAxios(); 
+    const {user} = useAuth(); 
+        const { data: memberShipStatus ={} } = useQuery({
+            queryKey: ['postLimit'], 
+            queryFn: async () => {
+                try {
+                    const res = await axiosPublic.get(`membershipStatus/${user.email}`);
+                    return res.data; 
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        })
+    
     const handleBuyPlan = () => {
         // Navigate to payment page with plan details
         navigate('/payment', {
@@ -16,6 +32,15 @@ const MemberShip = () => {
             },
         });
     };
+
+    if (memberShipStatus.memberShip === "member") {
+        return (
+            <div className='flex flex-col gap-4 md:gap-6 lg:gap-8 justify-center items-center min-h-screen'>
+                <h2 className='text-2xl md:text-3xl font-medium md:font-semibold'>Sorry You cann't Get Membership</h2>
+                <p className='text-lg md:text-xl font-medium md:font-semibold'>You are already Member Of Forum Hive Website. </p>
+            </div>
+        )
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 p-4">

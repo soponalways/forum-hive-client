@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import Select from 'react-select';
@@ -14,7 +13,6 @@ import useAxios from '../../../hooks/useAxios';
 const AddPost = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
-    const [postLimitReached, setPostLimitReached] = useState(false);
     const { register, handleSubmit, control, reset, formState: { errors } } = useForm();
     const axiosSecure = useAxiosSecure();
     const axiosPublic = useAxios(); 
@@ -27,14 +25,11 @@ const AddPost = () => {
         }
     })
 
-    const {data } = useQuery({
+    const { data: postLimitReached ={} } = useQuery({
         queryKey: ['postLimit'], 
         queryFn: async () => {
             try {
-                const res = await axiosSecure.get(`/posts/user/${user.email}/count`);
-                if (res.data.count >= 5) {
-                    setPostLimitReached(true);
-                }
+                const res = await axiosSecure.get(`membershipStatus/${user.email}`);
                 return res.data; 
             } catch (err) {
                 console.error(err);
@@ -66,7 +61,7 @@ const AddPost = () => {
         }
     };
 
-    if (postLimitReached) {
+    if (postLimitReached.postLimit === 0 && postLimitReached.memberShip === 'non-member') {
         return (
             <div className="flex flex-col items-center justify-center h-full space-y-4 text-center">
                 <h2 className="text-2xl font-semibold text-red-500">Post limit exceeded!</h2>
@@ -74,6 +69,15 @@ const AddPost = () => {
                 <button onClick={() => navigate('/membership')} className="btn btn-primary">Become a Member</button>
             </div>
         );
+    }
+    if (postLimitReached.postLimit === 0 && postLimitReached.memberShip === 'member') {
+        return (
+            <div className="flex flex-col items-center justify-center h-full space-y-4 text-center">
+                <h2 className="text-2xl font-semibold text-red-500">Post limit exceeded!</h2>
+                <p className="text-base">You can only add up to 10 posts as a member user.</p>
+                <p>Sorry You cann't add more than posts. Because You are alrady member of ForumHive.</p>
+            </div>
+        )
     }
 
     return (
