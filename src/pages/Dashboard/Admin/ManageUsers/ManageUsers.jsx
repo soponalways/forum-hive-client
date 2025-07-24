@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaUserShield } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaUserShield } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../../components/Loading';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
@@ -7,18 +7,38 @@ import Swal from 'sweetalert2';
 
 const ManageUsers = () => {
     const [search, setSearch] = useState('');
+    const [current , setCurrent] = useState(0)
     const axiosSecure = useAxiosSecure();
 
-    const fetchUsers = async () => {
-        const res = await axiosSecure.get(`/admin/users?search=${search}`);
-        return res.data;
-    };
+    
 
     const { data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ['users', search],
-        queryFn: fetchUsers,
+        queryKey: ['users', search, current],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/admin/users`, {
+                params : {
+                    search, 
+                    page : current, 
+                }
+            });
+            return res.data;
+        },
         enabled: !!search
     });
+
+    const { data: totalCountsOfUsers = [] } = useQuery({
+        queryKey: ['users', search],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/admin/users`, {
+                params: {
+                    search
+                }
+            });
+            return res.data;
+        },
+        enabled: !!search
+    })
+    
     const handleMakeAdmin = async (user) => {
         Swal.fire({
             title: "Do you want to Make as Admin",
@@ -36,11 +56,31 @@ const ManageUsers = () => {
                         </div>`, "success");
                     }
                 };
-                runDelete();              
+                runDelete();
             }
         });
-        
+
     };
+
+    const limit = 10;
+    const totalPages = Math.ceil(totalCountsOfUsers.length / limit); 
+
+    const pages = [...Array(totalPages).keys()]; 
+
+    const handleLeft = () => {
+        if (current > 0) {
+            return setCurrent(prev => prev - 1)
+        }
+    }
+    const handleRight = () => {
+        if (current < pages.length - 1) {
+            return setCurrent(prev => prev + 1)
+        }
+    }
+    const handleDirectButton = v => {
+        setCurrent(v)
+    }
+    
     // Conditional Rendering 
     if (isLoading) {
         return <Loading></Loading>
@@ -57,11 +97,11 @@ const ManageUsers = () => {
             />
             <div className="overflow-x-auto">
                 {users?.length === 0 ? <>
-                 <div className='flex flex-col gap-2 md:gap-3 lg:gap-4 justify-center items-center mt-5 md:mt-7 lg:mt-10'>
+                    <div className='flex flex-col gap-2 md:gap-3 lg:gap-4 justify-center items-center mt-5 md:mt-7 lg:mt-10'>
                         <h2 className='text-lg md:text-xl lg:text-2xl font-medium lg:font-semibold '>You haven't searched yet.</h2>
-                    <h2 className='text-lg md:text-xl lg:text-2xl font-medium lg:font-semibold '>Please Search a user via email or username</h2>
-                    <p>Here You manage user, you can make a normal user to admin</p>
-                 </div>
+                        <h2 className='text-lg md:text-xl lg:text-2xl font-medium lg:font-semibold '>Please Search a user via email or username</h2>
+                        <p>Here You manage user, you can make a normal user to admin</p>
+                    </div>
                 </>
                     : <>
                         <table className="table table-zebra w-full">
@@ -98,6 +138,31 @@ const ManageUsers = () => {
                                 ))}
                             </tbody>
                         </table></>}
+                    
+                    <div>
+                    {users.length > 0  && <div className='flex justify-between items-center w-3/4 mx-auto bg-white my-5 md:my-8 lg:my-10 rounded-lg py-2 md:py-3 lg:py-4 px-4 md:px-6 lg:px-8 md:rounded-xl shadow shadow-secondary'>
+                        <div>
+                            <span className='text-gray-500 mr-1 md:mr-2 '>showing</span> 
+                            <span className='text-gray-800 mr-1 md:mr-2  font-semibold'>{limit * current || 1}-{limit * current + users.length}</span>
+                            <span className='text-gray-500 mr-1 md:mr-2 '>of</span> 
+                            <span className='text-gray-800 mr-1 md:mr-2  font-semibold'>{totalCountsOfUsers.length}</span>
+                            </div>
+                        <div>
+                            <div className='text-center '>
+                                <span className='join join-horizontal'>
+                                            <span className='btn bg-white text-black join-item' onClick={handleLeft}><FaArrowLeft></FaArrowLeft></span>
+                                                {pages?.map(p => (
+                                                    <button key={p} 
+                                                    className={`btn border bg-primary-content text-black join-item ${current === p ? 'bg-primary/40 text-secondary' : ''}`} 
+                                                        onClick={() => handleDirectButton(p)}
+                                                    >{p}</button>
+                                                ))}
+                                            <span className='btn bg-white text-black join-item' onClick={handleRight}><FaArrowRight></FaArrowRight></span>
+                                            </span>
+                                        </div>
+                        </div>
+                        </div>}
+                    </div>
             </div>
         </div>
     );
