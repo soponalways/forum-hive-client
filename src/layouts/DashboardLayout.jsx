@@ -21,8 +21,8 @@ const DashboardLayout = () => {
 
     if(role === "admin") {
         navLinks = [
-            { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
-            { to: '/dashboard/admin-profile', label: 'Admin Profile', Icon: <FaUserShield /> },       // Bonus point 2
+            // { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
+            { to: '/dashboard/admin-profile', label: 'Admin Profile', Icon: <FaUserShield /> }, 
             { to: '/dashboard/manage-users', label: 'Manage Users', Icon: <FaUsersCog /> },
             { to: '/dashboard/reported-comments', label: 'Reported Activities', Icon: <FaExclamationTriangle /> },
             { to: '/dashboard/announcement', label: 'Make Announcement', Icon: <FaBullhorn /> },
@@ -30,7 +30,7 @@ const DashboardLayout = () => {
         ]
     }else {
         navLinks =[
-            { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
+            // { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
             { to: '/dashboard/profile', label: 'Profile', Icon: <FaUser /> },
             { to: '/dashboard/add-post', label: 'Add Post', Icon: <FaPlus /> },
             { to: '/dashboard/my-posts', label: 'My Posts', Icon: <FaClipboardList /> },
@@ -81,7 +81,7 @@ const DashboardLayout = () => {
 
             {/* Sidebar for mobile */}
             <div
-                className={`fixed top-0 left-0 h-full w-64 bg-base-200 shadow-md transform z-50 transition-transform duration-300 md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed overflow-y-auto top-0 left-0 h-full w-64 bg-base-200 shadow-md transform z-50 transition-transform duration-300 md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
                 <div className="p-4 text-lg font-bold border-b">ForumHive Dashboard</div>
