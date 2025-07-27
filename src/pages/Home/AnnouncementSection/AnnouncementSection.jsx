@@ -32,7 +32,6 @@ const AnnouncementSection = () => {
                             className="border border-blue-100 shadow-md max-w-screen overflow-hidden"
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 100, scale: 1 }}
-                            whileHover={{ background: "blue", duration: 300 }}
                         >
                             <CardHeader floated={false} className="flex items-center gap-4 p-4">
                                 <Avatar src={authorImage} alt={authorName} size="md" />

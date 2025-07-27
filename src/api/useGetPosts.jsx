@@ -2,14 +2,13 @@ import React from 'react';
 import useAxios from '../hooks/useAxios';
 import { useQuery } from '@tanstack/react-query';
 
-const useGetPosts = ({ sortBy, order, current , limit}) => {
+const useGetPosts = ({ sort,  current , limit}) => {
     const axiosPublic = useAxios();
     const queryFn = async () => {
         try {
             const response = await axiosPublic.get('/posts', {
                 params: {
-                    sortBy,
-                    order,
+                    sort,
                     limit, 
                     current
                 }
@@ -22,7 +21,7 @@ const useGetPosts = ({ sortBy, order, current , limit}) => {
     };
 
     const getPosts = useQuery({
-        queryKey: ['posts', order, sortBy , limit, current],
+        queryKey: ['posts', sort , limit, current],
         queryFn, 
     })
 
