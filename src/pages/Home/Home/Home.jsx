@@ -156,7 +156,7 @@ const Home = () => {
 
                 </section>
                 <section>
-                    <TagsSection></TagsSection>
+                    <TagsSection onSearch={onSearch}></TagsSection>
                 </section>
                 <section>
                     <AnnouncementSection></AnnouncementSection>

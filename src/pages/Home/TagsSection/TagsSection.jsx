@@ -3,7 +3,7 @@ import { Chip, Typography, Card, CardBody } from '@material-tailwind/react';
 import { motion } from 'motion/react';
 import useAxios from '../../../hooks/useAxios';
 
-const TagsSection = () => {
+const TagsSection = ({ onSearch }) => {
     const axiosPublic = useAxios(); 
     const { data: tags = [], isLoading } = useQuery({
         queryKey: ['tags'],
@@ -12,6 +12,12 @@ const TagsSection = () => {
             return res.data; 
         }
     });
+
+    const handleTagClick = (tagValue) => {
+        if (onSearch) {
+            onSearch({ search: tagValue });
+        }
+    };
 
     if (isLoading) return <p className="text-center text-blue-500 min-h-screen flex justify-center items-center">Loading tags...</p>;
 
@@ -23,14 +29,15 @@ const TagsSection = () => {
         >
             <Card className="shadow-lg">
                 <CardBody>
-                    <Typography variant="h6" color="blue-gray" className="mb-4">Explore Tags</Typography>
-                    <Typography variant="h6" color="blue-gray" className="mb-4">all tags you can search on the search bar. </Typography>
+                    <Typography variant="h6" color="blue-gray" className="mb-4 text-center">Explore Tags</Typography>
+                    <Typography variant="h6" color="blue-gray" className="mb-4 text-center">all tags you can search on the search bar. and click on the tag to search </Typography>
                     <div className="flex flex-wrap gap-3">
                         {tags.map((tag) => (
                             <Chip
                                 key={tag._id}
                                 value={tag.value}
-                                className="bg-blue-100 text-blue-800 cursor-pointer hover:bg-blue-200 transition-all"
+                                onClick={() => handleTagClick(tag.value)}
+                                className="bg-blue-100 text-blue-800 cursor-pointer hover:bg-blue-200 hover:scale-105 transition-all duration-200 active:scale-95"
                             />
                         ))}
                     </div>
