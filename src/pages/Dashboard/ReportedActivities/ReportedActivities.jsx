@@ -3,39 +3,72 @@ import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../components/Loading';
+import { useState } from 'react';
+import useAxios from '../../../hooks/useAxios';
+import Pagination from '../../Home/Home/shared/Pagination';
 
 const ReportedActivities = () => {
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxios();
+    const [current, setCurrent] = useState(0);
+    const limit = 10;
 
-    const { data: reports =[], isLoading, refetch} = useQuery({
-        queryKey: ['report'], 
+    const { data: reports = [], isLoading, refetch: refetchReports } = useQuery({
+        queryKey: ['report', current],
         queryFn: async () => {
-            const res = await axiosSecure.get('/reports'); 
-            return res.data; 
+            const res = await axiosSecure.get(`/reports?page=${current}&limit=${limit}`);
+            return res.data;
         }
-    })
+    });
+
+    const { data: total = {}, isLoading: countLoading, refetch: refetchCount } = useQuery({
+        queryKey: ['reports-count'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/reports/count');
+            return res.data;
+        }
+    });
+
 
     const handleAction = async (action, reportId, userEmail, commentId) => {
-        const response = await axiosSecure.patch(`/reports/action`, {
-            action,
-            reportId,
-            userEmail,
-            commentId,
-        });
-        if (response.data.modifiedCount > 0) {
-            Swal.fire('Success', `${action} applied`, 'success');
+        try {
+            const response = await axiosSecure.patch(`/reports/action`, {
+                action,
+                reportId,
+                userEmail,
+                commentId,
+            });
+            
+            if (response.data.modifiedCount > 0) {
+                Swal.fire('Success', `${action} applied`, 'success');
+                
+                // Refetch both reports and count data
+                await Promise.all([
+                    refetchReports(),
+                    refetchCount()
+                ]);
+                
+                // If current page becomes empty after action, go to previous page
+                if (reports.length === 1 && current > 0) {
+                    setCurrent(current - 1);
+                }
+            } else {
+                Swal.fire('Info', 'No changes were made', 'info');
+            }
+        } catch (error) {
+            console.error('Error performing action:', error);
+            Swal.fire('Error', 'Failed to perform action', 'error');
         }
-        refetch();
     };
 
-    if (isLoading) {
-        return <Loading></Loading>
+    if (isLoading || countLoading) {
+        return <Loading></Loading>;
     }
 
-    if(reports.length === 0) {
+    if(reports.length === 0 && total?.count === 0) {
         return <div className='flex justify-center items-center min-h-screen'>
-            <p className='text-2xl md:text-3xl lg:text-4xl font-semibold'>@ No Report Founds</p>
-        </div>
+            <p className='text-2xl md:text-3xl lg:text-4xl font-semibold'>@ No Report Found</p>
+        </div>;
     }
     return (
         <div className="p-5">
@@ -75,6 +108,16 @@ const ReportedActivities = () => {
                     </tbody>
                 </table>
             </div>
+
+            {total?.count > limit && (
+                <Pagination
+                    limit={limit}
+                    current={current}
+                    data={reports}
+                    totalCountData={total}
+                    setCurrent={setCurrent}
+                />
+            )}
         </div>
     );
 };
