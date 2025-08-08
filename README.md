@@ -156,6 +156,44 @@ Built using `recharts` under `/admin/profile` route.
 - Functional and visually pleasing UI
 - Project aims to stand out in real-world portfolios
 
+
+
+## 🧑‍💻 Run the Project Locally
+#### Follow these steps to set up and run Hobby Hub on your local machine:
+1. Clone the repository
+   ``` bash
+       git clone https://github.com/soponalways/forum-hive-client.git
+    ```
+2. Navigate to the project directory
+   ``` bash
+       cd forum-hive-client
+   ```
+3. Install all dependencies
+   ``` bash
+       npm install
+   ```
+4. Create .env file on root folder then add all this credintial
+    ```bash
+   VITE_apiKey=
+   VITE_authDomain=
+   VITE_projectId=
+   VITE_storageBucket=
+   VITE_messagingSenderId=
+   VITE_appId=
+   VITE_measurementId=
+    VITE_base_server_url=https://forum-hive-server.vercel.app
+    VITE_IMGBB_API_KEY=
+    VITE_STRIPE_KEY=
+   ```
+5. Start the development server 
+   ``` bash
+       npm run dev
+   ```
+6. Open the app in your browser
+Visit: http://localhost:5173
+
+
+
 ---
 
 ## 📩 Contact
