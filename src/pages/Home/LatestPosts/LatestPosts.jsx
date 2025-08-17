@@ -13,7 +13,6 @@ const LatestPosts = () => {
             return res.data; 
         }
     });
-    console.log(latestPosts);
     return (
         <div>
             <Typography variant="h5" className="mb-6 text-primary">

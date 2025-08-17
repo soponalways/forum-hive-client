@@ -12,6 +12,7 @@ import no_Data_Found from '../../../assets/Lottie/no_Data_Found.json';
 import Lottie from 'lottie-react';
 import SkeletonPostCard from './SkeletonPostCard';
 import LatestPosts from '../LatestPosts/LatestPosts';
+import FAQ from '../FAQ/FAQ';
 
 
 const Home = () => {
@@ -177,6 +178,11 @@ const Home = () => {
                 {/* <Latest Posts Section */}
                 <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
                         <LatestPosts />
+                </section>
+
+                {/* FAQ Section  */}
+                <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
+                    <FAQ />
                 </section>
             </main>
         </div>
