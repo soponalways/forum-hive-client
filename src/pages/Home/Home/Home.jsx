@@ -13,6 +13,7 @@ import Lottie from 'lottie-react';
 import SkeletonPostCard from './SkeletonPostCard';
 import LatestPosts from '../LatestPosts/LatestPosts';
 import FAQ from '../FAQ/FAQ';
+import Newsletter from '../Newsletter/Newsletter';
 
 
 const Home = () => {
@@ -183,6 +184,10 @@ const Home = () => {
                 {/* FAQ Section  */}
                 <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
                     <FAQ />
+                </section>
+                {/* News Letter Section */}
+                <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
+                    <Newsletter />
                 </section>
             </main>
         </div>

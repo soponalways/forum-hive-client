@@ -12,6 +12,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from "@material-tailwind/react";
+import { Bounce, ToastContainer } from 'react-toastify';
+
 
 Aos.init();
 const queryClient = new QueryClient();
@@ -31,6 +33,19 @@ createRoot(document.getElementById('root')).render(
           </AuthProvider>
         </QueryClientProvider>
       </Elements>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
     </div>
   </StrictMode>,
 )
