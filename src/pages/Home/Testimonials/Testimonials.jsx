@@ -25,29 +25,31 @@ const Testimonials = () => {
                 </p>
             </div>
 
-            <Swiper
-                modules={[Autoplay]}
-                slidesPerView={1}
-                spaceBetween={15}
-                autoplay={{ delay: 2000, disableOnInteraction: false }}
-                loop={true}
-                breakpoints={{
-                    640: { slidesPerView: 1 },
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 },
-                }}
-            >
-                {testimonials.map((t) => (
-                    <SwiperSlide key={t.id}>
-                        <TestimonialCard
-                            name={t.name}
-                            role={t.role}
-                            message={t.message}
-                            img={t.img}
-                        />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+            <div className="px-4 md:px-6 lg:px-8">
+                <Swiper
+                    modules={[Autoplay]}
+                    slidesPerView={1}
+                    spaceBetween={15}
+                    autoplay={{ delay: 2000, disableOnInteraction: false }}
+                    loop={true}
+                    breakpoints={{
+                        640: { slidesPerView: 1 },
+                        768: { slidesPerView: 2 },
+                        1024: { slidesPerView: 3 },
+                    }}
+                >
+                    {testimonials.map((t) => (
+                        <SwiperSlide key={t.id}>
+                            <TestimonialCard
+                                name={t.name}
+                                role={t.role}
+                                message={t.message}
+                                img={t.img}
+                            />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
         </div>
     );
 };

@@ -16,6 +16,7 @@ import FAQ from '../FAQ/FAQ';
 import Newsletter from '../Newsletter/Newsletter';
 import SignupCTA from '../SignupCTA/SignupCTA';
 import Testimonials from '../Testimonials/Testimonials';
+import CommunityStatsSection from '../CommunityStatsSection/CommunityStatsSection';
 
 
 const Home = () => {
@@ -186,6 +187,10 @@ const Home = () => {
                 {/* Testimonial Section */}
                 <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
                     <Testimonials />
+                </section>
+                {/* Community Stats Section */}
+                <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
+                    <CommunityStatsSection />
                 </section>
                 {/* SignupCTA Section */}
                 <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
