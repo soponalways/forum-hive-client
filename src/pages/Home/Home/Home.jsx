@@ -15,6 +15,7 @@ import LatestPosts from '../LatestPosts/LatestPosts';
 import FAQ from '../FAQ/FAQ';
 import Newsletter from '../Newsletter/Newsletter';
 import SignupCTA from '../SignupCTA/SignupCTA';
+import Testimonials from '../Testimonials/Testimonials';
 
 
 const Home = () => {
@@ -182,6 +183,10 @@ const Home = () => {
                         <LatestPosts />
                 </section>
 
+                {/* Testimonial Section */}
+                <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
+                    <Testimonials />
+                </section>
                 {/* SignupCTA Section */}
                 <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
                     <SignupCTA />
