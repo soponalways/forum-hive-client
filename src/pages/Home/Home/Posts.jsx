@@ -3,7 +3,7 @@ import PostCard from './PostCard';
 
 const Posts = ({posts}) => {
     return (
-        <div className="max-w-6xl mx-auto grid gap-8 grid-cols-1">
+        <div className=" mx-auto grid gap-8 grid-cols-1">
             {posts?.map((post, index) => <PostCard key={post._id} post={post} index={index}></PostCard>)}
         </div>
     );

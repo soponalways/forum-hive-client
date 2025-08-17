@@ -10,6 +10,8 @@ import Posts from './Posts';
 import Pagination from './shared/Pagination';
 import no_Data_Found from '../../../assets/Lottie/no_Data_Found.json';
 import Lottie from 'lottie-react';
+import SkeletonPostCard from './SkeletonPostCard';
+
 
 const Home = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -108,7 +110,16 @@ const Home = () => {
                 {/* Show the all posts */}
                 <section>
                     <div>
-                        {isSearching && posts?.length === 0 ? (
+                        {isLoading && isLoading2 && (
+                            <div className='mx-auto grid gap-8 grid-cols-1'>
+                                <SkeletonPostCard />
+                                <SkeletonPostCard />
+                                <SkeletonPostCard />
+                                <SkeletonPostCard />
+                                <SkeletonPostCard />
+                            </div>
+                        )}
+                        {isLoading === false && isLoading2 === false && posts?.length === 0 ? (
                             <div className='flex flex-col bg-primary/10 rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 gap-3 md:gap-5 lg:gap-6'>
                                 <h2 className="text-center text-red-500 text-2xl md:text-3xl lg:text-4xl font-semibold md:font-bold">Sorry Post No found.</h2>
                                 <p className="text-center text-red-500 text-lg font-semibold">No posts found for that tag.</p>

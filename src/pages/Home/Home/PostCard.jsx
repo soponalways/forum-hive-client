@@ -15,6 +15,9 @@ const PostCard = ({post, index}) => {
             return res.data; 
         }
     })
+    const onClick = () => {
+        navigate(`/post/${post._id}`);
+    }
 
     return (
         <motion.div
@@ -22,7 +25,7 @@ const PostCard = ({post, index}) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeInOut', delay: index * 0.05 }}
-            onClick={() => navigate(`/post/${post._id}`)}
+            onClick={onClick}
             className="p-5 hover:drop-shadow-xl hover:drop-shadow-primary bg-white rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition cursor-pointer duration-300 border border-base-200"
         >
             <div className="flex items-center gap-3 mb-4">
@@ -37,9 +40,13 @@ const PostCard = ({post, index}) => {
                 </div>
             </div>
             <h2 className="text-xl font-bold text-black mb-2">{post.title}</h2>
+            <button className='mb-4 text-primary font-semibold btn btn-xs md:btn-sm btn-secondary hover:bg-primary/20 transition-colors duration-200  rounded-xl md:rounded-2xl'>
+                See More
+            </button><br />
             <p className="inline-block bg-secondary/10 text-secondary font-medium px-3 py-1 rounded-full text-sm mb-3">
                 #{post.tag}
             </p>
+           
             <div className="flex justify-between items-center text-black text-sm font-medium">
                 <p className="flex items-center gap-1">
                     <FaComments className="text-primary" /> {comments.length} Comments
