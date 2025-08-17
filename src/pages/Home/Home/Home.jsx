@@ -14,6 +14,7 @@ import SkeletonPostCard from './SkeletonPostCard';
 import LatestPosts from '../LatestPosts/LatestPosts';
 import FAQ from '../FAQ/FAQ';
 import Newsletter from '../Newsletter/Newsletter';
+import SignupCTA from '../SignupCTA/SignupCTA';
 
 
 const Home = () => {
@@ -181,6 +182,10 @@ const Home = () => {
                         <LatestPosts />
                 </section>
 
+                {/* SignupCTA Section */}
+                <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
+                    <SignupCTA />
+                </section>
                 {/* FAQ Section  */}
                 <section className='px-4 py-8  mx-auto mt-5 md:mt-7 lg:mt-10'>
                     <FAQ />
