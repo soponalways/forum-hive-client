@@ -8,6 +8,7 @@ import { FaThumbsUp, FaThumbsDown, FaCommentDots, FaShareAlt } from 'react-icons
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import useAxios from '../../hooks/useAxios';
+import SkeletonPostCard from '../Home/Home/SkeletonPostCard';
 
 const PostDetails = () => {
     const { user } = useAuth();
@@ -71,7 +72,9 @@ const PostDetails = () => {
         commentsRefetch(); 
     };
 
-    if (!post) return <div className="text-center py-10">Loading...</div>;
+    if (!post) return <div className="max-w-4xl mx-auto px-4 py-10">
+        <SkeletonPostCard />
+    </div>;
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-10">

@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../components/Loading';
 import { useState } from 'react';
 import useAxios from '../../../hooks/useAxios';
-import Pagination from '../../Home/Home/shared/Pagination';
+import Pagination from '../../Home/Home/shared/PaginationMui';
 
 const ReportedActivities = () => {
     const axiosSecure = useAxiosSecure();

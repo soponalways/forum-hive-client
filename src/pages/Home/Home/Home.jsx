@@ -7,7 +7,7 @@ import useAxios from '../../../hooks/useAxios';
 import useGetPosts from '../../../api/useGetPosts';
 import { useQuery } from '@tanstack/react-query';
 import Posts from './Posts';
-import Pagination from './shared/Pagination';
+import PaginationMui from './shared/PaginationMui';
 import no_Data_Found from '../../../assets/Lottie/no_Data_Found.json';
 import Lottie from 'lottie-react';
 import SkeletonPostCard from './SkeletonPostCard';
@@ -141,22 +141,22 @@ const Home = () => {
                                     ></Posts>
                                     <div>
                                         {defaultPosts && !isSearching && (
-                                            <Pagination
+                                            <PaginationMui
                                                 limit={limit}
                                                 current={current}
                                                 data={posts}
                                                 totalCountData={totalPostsCountData}
                                                 setCurrent={setCurrent}
-                                            ></Pagination>
+                                            ></PaginationMui>
                                         )}
                                         {isSearching && (
-                                            <Pagination
+                                            <PaginationMui
                                                 limit={limit}
                                                 current={searchCurrent}
                                                 data={searchResults}
                                                 totalCountData={totalPostsCountData}
                                                 setCurrent={setSearchCurrent}
-                                            ></Pagination>
+                                            ></PaginationMui>
                                         )}
 
                                     </div>
