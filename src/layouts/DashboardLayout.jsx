@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router';
 import { FaBackward, FaBars, FaTimes, FaHome, FaUser, FaPlus, FaClipboardList, FaUserShield, FaUsersCog, FaExclamationTriangle, FaBullhorn } from 'react-icons/fa';
+import { TbDeviceDesktopAnalytics } from "react-icons/tb";
 import useAuth from '../hooks/useAuth';
 import useGetRole from '../api/useGetRole';
 import Loading from '../components/Loading';
@@ -21,8 +22,8 @@ const DashboardLayout = () => {
 
     if(role === "admin") {
         navLinks = [
-            // { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
-            { to: '/dashboard/admin-profile', label: 'Admin Profile', Icon: <FaUserShield /> }, 
+            { to: '/dashboard', label: 'Overview', Icon: <TbDeviceDesktopAnalytics /> },
+            { to: '/dashboard/profile', label: 'Admin Profile', Icon: <FaUserShield /> }, 
             { to: '/dashboard/manage-users', label: 'Manage Users', Icon: <FaUsersCog /> },
             { to: '/dashboard/reported-comments', label: 'Reported Activities', Icon: <FaExclamationTriangle /> },
             { to: '/dashboard/announcement', label: 'Make Announcement', Icon: <FaBullhorn /> },
@@ -30,7 +31,7 @@ const DashboardLayout = () => {
         ]
     }else {
         navLinks =[
-            // { to: '/dashboard', label: 'Dashboard', Icon: <FaHome /> },
+            { to: '/dashboard', label: 'Overview', Icon: <TbDeviceDesktopAnalytics /> },
             { to: '/dashboard/profile', label: 'Profile', Icon: <FaUser /> },
             { to: '/dashboard/add-post', label: 'Add Post', Icon: <FaPlus /> },
             { to: '/dashboard/my-posts', label: 'My Posts', Icon: <FaClipboardList /> },

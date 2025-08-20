@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B'];
 
-const AdminProfile = () => {
+const AdminOverview = () => {
     const axiosSecure = useAxiosSecure(); 
     const {user } = useAuth(); 
     const { data: stats = {}, isLoading } = useQuery({
@@ -164,4 +164,4 @@ const AdminProfile = () => {
     );
 };
 
-export default AdminProfile;
+export default AdminOverview;

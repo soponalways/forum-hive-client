@@ -11,13 +11,12 @@ import MyPosts from "../pages/Dashboard/User/MyPosts";
 import PostDetails from "../pages/PostDetails/PostDetails";
 import MemberShip from "../pages/MemberShip/MemberShip";
 import PaymentForm from "../pages/MemberShip/PaymentForm";
-import MyProfile from "../pages/Dashboard/User/MyProfile";
 import Comment from "../pages/Dashboard/User/Comment/Comment";
 import AdminRoute from "../routes/AdminRoute";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ReportedActivities from "../pages/Dashboard/ReportedActivities/ReportedActivities";
 import MakeAnnouncement from "../pages/Dashboard/Admin/MakeAnnouncement/MakeAnnouncement";
-import AdminProfile from "../pages/Dashboard/Admin/AdminProfile/AdminProfile";
+import Profile from "../pages/Dashboard/shared/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -76,7 +75,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile', 
-        element: <MyProfile></MyProfile>
+        element: <Profile></Profile>
       }, 
       {
         path: 'comment/:postId', 
@@ -99,13 +98,6 @@ export const router = createBrowserRouter([
         path: 'announcement', 
         element: <AdminRoute>
           <MakeAnnouncement></MakeAnnouncement>
-        </AdminRoute>
-      }
-      , 
-      {
-        path: 'admin-profile', 
-        element: <AdminRoute>
-          <AdminProfile></AdminProfile>
         </AdminRoute>
       }
     ]
