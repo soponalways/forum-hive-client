@@ -17,10 +17,10 @@ console.log("UserDAta on the Profile page", userData, userDataLoading)
             {/* First Container  */}
             <div className='p-3 md:p-4 lg:p-6 rounded-lg md:rounded-xl shadow shadow-primary bg-gray-100 text-black hover:shadow-2xl hover:shadow-primary border-gray-500 border'>
                 <div className='flex gap-4 md:gap-5 lg:gap-6'>
-                    <Avatar src={userData.image} alt='Sppon' ></Avatar>
+                    <Avatar src={userData?.image} alt='Sppon' ></Avatar>
                     <div>
-                        <h2 className='text-lg md:text-xl font-semibold'>{userData.name}</h2>
-                        <p><span>Role: {role}</span><span>{userData.Address && (<span>| {userData.Address}</span>)}</span></p>
+                        <h2 className='text-lg md:text-xl font-semibold'>{userData?.name}</h2>
+                        <p><span>Role: {role}</span><span>{userData?.Address && (<span>| {userData?.Address}</span>)}</span></p>
                     </div>
                 </div>
                 <div>
