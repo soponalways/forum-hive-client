@@ -5,8 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import useGetUserData from '../../../api/useGetUserData';
 import { FaFacebook, FaLinkedinIn, FaTwitter, FaUserEdit } from 'react-icons/fa';
 import Button from './components/Button';
-import BasicInfoUpdateForm from './components/BasicInfoUpdateForm';
-import { Link } from 'react-router';
+import { Link, Navigate } from 'react-router';
 
 const Profile = () => {
     const { role, isLoading } = useGetRole();
@@ -29,20 +28,25 @@ const Profile = () => {
                 </div>
                 <div className='flex gap-3 md:gap-4 lg:gap-5'>
                     <div className='flex gap-1 md:gap-2 '>
-                        <Button><FaFacebook size={24}></FaFacebook></Button>
-                        <Button><FaLinkedinIn size={24}></FaLinkedinIn></Button>
-                        <Button><FaTwitter size={24}></FaTwitter></Button>
+                        {userData?.twitter && <Button><Link to={userData?.twitter}><FaTwitter size={24}></FaTwitter></Link></Button>}
+                        {userData?.linkedin && <Button><Link to={userData?.twitter}><FaLinkedinIn size={24}></FaLinkedinIn></Link></Button>}
+                        {userData?.facebook && <Button><Link to={userData?.twitter}><FaFacebook size={24}></FaFacebook></Link></Button>}
                     </div>
                     <Link to='/dashboard/profile/update'><Button><FaUserEdit size={24}></FaUserEdit></Button></Link>
                 </div>
             </div>
             {/* Second Container  */}
             <div className='p-3 md:p-4 lg:p-6 rounded-lg md:rounded-xl shadow shadow-primary bg-gray-100 text-black hover:shadow-2xl hover:shadow-primary border-gray-500 border'>
-                f
-            </div>
-            {/* 3rd Container  */}
-            <div className='p-3 md:p-4 lg:p-6 rounded-lg md:rounded-xl shadow shadow-primary bg-gray-100 text-black hover:shadow-2xl hover:shadow-primary border-gray-500 border'>
-                f
+                {/* User Info */}
+                <div className="flex-1 space-y-3">
+                    <h2 className="text-2xl font-bold">{userData.fullName}</h2>
+                    <p className="text-sm text-gray-600">{userData.email}</p>
+                    <p className="text-sm">{userData.phone}</p>
+                    <p className="text-sm">DOB: {userData.dob}</p>
+                    <p className="text-sm">Gender: {userData.gender}</p>
+                    <p className="text-sm">Address: {userData.address}</p>
+                    <p className="text-sm">Country: {userData.country}</p>
+                </div>
             </div>
         </div>
     );

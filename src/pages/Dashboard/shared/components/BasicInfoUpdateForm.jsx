@@ -28,7 +28,7 @@ const BasicInfoUpdateForm = () => {
 
             // 2. Prepare updated user data
             const UpdatedUserData = {
-                fullName: data.fullName,
+                name: data.fullName,
                 email: data.email,
                 phone: data.phone,
                 dob: data.dob,
