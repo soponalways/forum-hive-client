@@ -19,6 +19,7 @@ import MakeAnnouncement from "../pages/Dashboard/Admin/MakeAnnouncement/MakeAnno
 import Profile from "../pages/Dashboard/shared/Profile";
 import UpdateProfile from "../pages/Dashboard/shared/UpdateProfile";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: '/contact-us',
         Component: ContactUs
+      },
+      {
+        path: '/about-us',
+        Component: AboutUs
       },
       {
         path: '/membership',
