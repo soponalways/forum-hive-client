@@ -22,10 +22,15 @@ const Navbar = () => {
             }
         }
     }); 
+
+    const classes = 'btn btn-secondary mx-1 hover:scale-105 duration-300 transition-transform'
     
     const navItems = <>
-        <li><NavLink className={'btn btn-secondary mx-1 hover:scale-105 duration-300 transition-transform'} to="/">Home</NavLink></li>
-        <li><NavLink className={'btn btn-secondary mx-1 hover:scale-105 duration-300 transition-transform'} to="/membership">Membership</NavLink></li>
+        <li><NavLink className={classes} to="/">Home</NavLink></li>
+        <li><NavLink className={classes} to="/contact-us">Contact Us</NavLink></li>
+        <li><NavLink className={classes} to="/about-us">About Us</NavLink></li>
+        <li><NavLink className={classes} to="/membership">Membership</NavLink></li>
+        <li><NavLink className={classes} to="/leaderboard">Leaderboard</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">

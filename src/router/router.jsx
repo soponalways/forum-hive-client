@@ -18,6 +18,7 @@ import ReportedActivities from "../pages/Dashboard/ReportedActivities/ReportedAc
 import MakeAnnouncement from "../pages/Dashboard/Admin/MakeAnnouncement/MakeAnnouncement";
 import Profile from "../pages/Dashboard/shared/Profile";
 import UpdateProfile from "../pages/Dashboard/shared/UpdateProfile";
+import ContactUs from "../pages/ContactUs/ContactUs";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: '/post/:PostId',
         Component: PostDetails
+      },
+      {
+        path: '/contact-us',
+        Component: ContactUs
       },
       {
         path: '/membership',
