@@ -20,6 +20,7 @@ import Profile from "../pages/Dashboard/shared/Profile";
 import UpdateProfile from "../pages/Dashboard/shared/UpdateProfile";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import Leaderboard from "../pages/Leaderboard/Leaderboard";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,12 @@ export const router = createBrowserRouter([
         path: '/membership',
         element: <PrivateRoute>
           <MemberShip></MemberShip>
+        </PrivateRoute>
+      },
+      {
+        path: '/leaderboard',
+        element: <PrivateRoute>
+          <Leaderboard />
         </PrivateRoute>
       },
       {
