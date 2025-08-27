@@ -20,7 +20,7 @@ const Banner = ({ setSort, onSearch, isLoading2, isLoading, handleSubmit, regist
         return <Loading></Loading>
     }
     return (
-        <div className="relative py-16 px-4 md:px-8 bg-contain bg-conic bg-[url(https://res.cloudinary.com/dthmavlxj/image/upload/v1755370736/BannerImgForum_enlx6b.jpg)] bg-repeat-round bg-cover rounded-xl md:rounded-2xl mb-4 sm:mb-8 lg:mb-10">
+        <div className="relative py-16 px-4 md:px-8 bg-contain bg-conic bg-[url(https://res.cloudinary.com/dthmavlxj/image/upload/v1756225427/forumBanner_wo4nrt.jpg)] bg-repeat-round bg-cover rounded-xl md:rounded-2xl mb-4 sm:mb-8 lg:mb-10">
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/40 rounded-xl"></div>
             {/* bg-gradient-to-br from-primary/10 to-secondary/10 */}

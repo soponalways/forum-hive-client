@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import { motion } from 'framer-motion';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
-const MyProfile = () => {
+const UserOverview = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure(); 
 
@@ -74,4 +74,4 @@ const MyProfile = () => {
     );
 };
 
-export default MyProfile;
+export default UserOverview;

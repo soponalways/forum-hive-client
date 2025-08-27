@@ -82,10 +82,10 @@ const AddPost = () => {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl mx-auto p-6 bg-white shadow-xl rounded-xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-3xl mx-auto p-6 bg-white shadow-xl rounded-xl"
         >
             <h2 className="text-2xl font-bold mb-6 text-center text-black">Add New Post</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

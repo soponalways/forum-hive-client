@@ -9,23 +9,36 @@ import useAxios from '../../../hooks/useAxios';
 
 const Navbar = () => {
     const { user } = useAuth();
-    const axiosPublic = useAxios(); 
+    const axiosPublic = useAxios();
 
-    const {data: numberOfAnnouncement = {count : 0}} = useQuery({
-        queryKey: ['announcementsCount'], 
+    const { data: numberOfAnnouncement = { count: 0 } } = useQuery({
+        queryKey: ['announcementsCount'],
         queryFn: async () => {
             try {
-                const res = await axiosPublic.get('/announcements/count'); 
-                return res.data; 
+                const res = await axiosPublic.get('/announcements/count');
+                return res.data;
             } catch (error) {
                 console.log(error?.message)
             }
         }
-    }); 
-    
+    });
+
+    const classes = 'btn btn-secondary mx-1 hover:scale-105 duration-300 transition-transform'
+
     const navItems = <>
-        <li><NavLink className={'btn btn-secondary mx-1 hover:scale-105 duration-300 transition-transform'} to="/">Home</NavLink></li>
-        <li><NavLink className={'btn btn-secondary mx-1 hover:scale-105 duration-300 transition-transform'} to="/membership">Membership</NavLink></li>
+        <li><NavLink className={classes} to="/">Home</NavLink></li>
+        <li><NavLink className={classes} to="/contact-us">Contact Us</NavLink></li>
+        <li><NavLink className={classes} to="/about-us">About Us</NavLink></li>
+        {
+            user ? <>
+                <li><NavLink className={classes} to="/membership">Membership</NavLink></li>
+                <li><NavLink className={classes} to="/leaderboard">Leaderboard</NavLink></li>
+                <li><NavLink className={classes} to="/dashboard/profile">Profile</NavLink></li>
+            </> :
+                <>
+                    
+                </>
+        }
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">

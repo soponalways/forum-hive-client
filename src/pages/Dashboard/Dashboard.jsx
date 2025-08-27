@@ -2,7 +2,8 @@ import React from 'react';
 import useGetRole from '../../api/useGetRole';
 import Loading from '../../components/Loading';
 import AdminRoute from '../../routes/AdminRoute';
-import { Navigate } from 'react-router';
+import AdminOverview from './Admin/AdminOverview/AdminOverview';
+import UserOverview from './User/UserOverview';
 
 const Dashboard = () => {
     const { role, isLoading } = useGetRole();
@@ -14,12 +15,12 @@ const Dashboard = () => {
         <div>
             {role === "admin" ? <>
                 <AdminRoute>
-                    <Navigate to={'/dashboard/admin-profile'}></Navigate>
+                    <AdminOverview></AdminOverview>
                 </AdminRoute>
             </>
                 :
                 <>
-                    <Navigate to={'/dashboard/profile'}></Navigate>
+                    <UserOverview></UserOverview>
                 </>}
         </div>
     );

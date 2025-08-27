@@ -11,13 +11,16 @@ import MyPosts from "../pages/Dashboard/User/MyPosts";
 import PostDetails from "../pages/PostDetails/PostDetails";
 import MemberShip from "../pages/MemberShip/MemberShip";
 import PaymentForm from "../pages/MemberShip/PaymentForm";
-import MyProfile from "../pages/Dashboard/User/MyProfile";
 import Comment from "../pages/Dashboard/User/Comment/Comment";
 import AdminRoute from "../routes/AdminRoute";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ReportedActivities from "../pages/Dashboard/ReportedActivities/ReportedActivities";
 import MakeAnnouncement from "../pages/Dashboard/Admin/MakeAnnouncement/MakeAnnouncement";
-import AdminProfile from "../pages/Dashboard/Admin/AdminProfile/AdminProfile";
+import Profile from "../pages/Dashboard/shared/Profile";
+import UpdateProfile from "../pages/Dashboard/shared/UpdateProfile";
+import ContactUs from "../pages/ContactUs/ContactUs";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import Leaderboard from "../pages/Leaderboard/Leaderboard";
 
 export const router = createBrowserRouter([
   {
@@ -33,25 +36,39 @@ export const router = createBrowserRouter([
         Component: Forbidden
       },
       {
-        path: 'Join-us', 
+        path: 'Join-us',
         Component: React.lazy(() => import('../pages/Authentication/JoinUs'))
-      }, 
+      },
       {
         path: 'signup',
         Component: React.lazy(() => import('../pages/Authentication/Signup'))
-      }, 
+      },
       {
-        path: '/post/:PostId', 
+        path: '/post/:PostId',
         Component: PostDetails
-      }, 
+      },
       {
-        path: '/membership', 
+        path: '/contact-us',
+        Component: ContactUs
+      },
+      {
+        path: '/about-us',
+        Component: AboutUs
+      },
+      {
+        path: '/membership',
         element: <PrivateRoute>
           <MemberShip></MemberShip>
         </PrivateRoute>
-      }, 
+      },
       {
-        path: '/payment', 
+        path: '/leaderboard',
+        element: <PrivateRoute>
+          <Leaderboard />
+        </PrivateRoute>
+      },
+      {
+        path: '/payment',
         element: <PrivateRoute>
           <PaymentForm></PaymentForm>
         </PrivateRoute>
@@ -59,53 +76,50 @@ export const router = createBrowserRouter([
     ]
   },
   {
-    path: 'dashboard', 
-    element: <PrivateRoute ><DashboardLayout /></PrivateRoute>, 
+    path: 'dashboard',
+    element: <PrivateRoute ><DashboardLayout /></PrivateRoute>,
     children: [
       {
         index: true,
         Component: Dashboard
       },
       {
-        path: 'add-post', 
-        element: <AddPost />, 
-      }, 
-      {
-        path: 'my-posts',
-        element: <MyPosts />, 
+        path: 'add-post',
+        element: <AddPost />,
       },
       {
-        path: 'profile', 
-        element: <MyProfile></MyProfile>
-      }, 
+        path: 'my-posts',
+        element: <MyPosts />,
+      },
       {
-        path: 'comment/:postId', 
+        path: 'profile',
+        element: <Profile></Profile>
+      },
+      {
+        path: 'profile/update',
+        element: <UpdateProfile></UpdateProfile>
+      },
+      {
+        path: 'comment/:postId',
         element: <Comment></Comment>
-      }, 
+      },
       // Admin Route
       {
-        path: 'manage-users', 
+        path: 'manage-users',
         element: <AdminRoute>
           <ManageUsers></ManageUsers>
         </AdminRoute>
-      }, 
+      },
       {
-        path: 'reported-comments', 
+        path: 'reported-comments',
         element: <AdminRoute>
           <ReportedActivities></ReportedActivities>
         </AdminRoute>
-      }, 
+      },
       {
-        path: 'announcement', 
+        path: 'announcement',
         element: <AdminRoute>
           <MakeAnnouncement></MakeAnnouncement>
-        </AdminRoute>
-      }
-      , 
-      {
-        path: 'admin-profile', 
-        element: <AdminRoute>
-          <AdminProfile></AdminProfile>
         </AdminRoute>
       }
     ]
